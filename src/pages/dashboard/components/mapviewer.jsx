@@ -17,7 +17,7 @@ const Navigation = ({ currentLocation }) => {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyAO_uNaAugY9B9_2vU1lBUitz_Jwl12mZo",
+    googleMapsApiKey: import.meta.env.GOOGLE_KEY,
   });
 
   const [markerList, setMarkerList] = useState([]);
