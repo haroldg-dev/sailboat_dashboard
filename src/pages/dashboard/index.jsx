@@ -6,8 +6,8 @@ import Navigation from "./components/mapviewer";
 import Terminal from "./components/Terminal";
 import SensorsRigth from "./components/SensorsRigth";
 import SensorsLeft from "./components/SensorsLeft";
-import FlightIndicators from "./components/flightIndicators";
 import Brujula from "./components/brujula";
+import GeoReference from "./components/georeference";
 const dashboard = () => {
   const [data, setData] = useState({
     sensors: {
@@ -53,7 +53,7 @@ const dashboard = () => {
           p={2}
           width="25vw"
           sx={{
-            top: "10vh",
+            top: "5vh",
             position: "absolute",
             zIndex: "modal",
           }}
@@ -79,7 +79,7 @@ const dashboard = () => {
           width="25vw"
           p={2}
           sx={{
-            top: "10vh",
+            top: "5vh",
             position: "absolute",
             zIndex: "modal",
             right: "0vw",
@@ -99,6 +99,10 @@ const dashboard = () => {
           {/* ROW2 */}
           <Box m={2} backgroundColor="rgba(35, 35, 35, 0.7)" display="flex">
             <Brujula />
+          </Box>
+          {/* ROW3 */}
+          <Box m={2} display="flex">
+            <GeoReference data={data.georeference} />
           </Box>
         </Box>
       </Box>
