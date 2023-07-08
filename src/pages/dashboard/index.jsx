@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
-import { Box, useTheme, Typography } from "@mui/material";
+import { Box, Switch, useTheme, Typography } from "@mui/material";
 import { tokens } from "../../core/theme/theme";
 import Navigation from "./components/mapviewer";
 import Terminal from "./components/Terminal";
@@ -25,23 +25,42 @@ const dashboard = () => {
   useEffect(() => {
     const newSocket = io(`http://localhost:4000`);
     if (newSocket) {
-      newSocket.on("xbee:gps", (res) => {
+      newSocket.on("xbee:datos", (res) => {
         setData({
           sensors: {
             tempInt: res.tempInterna,
             humedad: res.humedad,
             velViento: res.velViento,
             dirViento: res.dirViento,
+            presion: res.presion,
+            saturacion: res.sat,
+            altitud: res.altitud,
           },
           currentLocation: {
             lat: parseFloat(res.lat),
             lng: parseFloat(res.lng),
+          },
+          space: {
+            accelx: res.accelx,
+            accely: res.accely,
+            brujula: res.brujula,
+          },
+          satelite: {
+            mes: res.mes,
+            dia: res.dia,
+            hora: res.hora,
+            min: res.min,
           },
         });
       });
     }
   }, []);
 
+  const [sensorsChecked, setsensorsChecked] = useState(true);
+  const [terminalChecked, setterminalChecked] = useState(true);
+  const [sensors2Checked, setsensors2Checked] = useState(true);
+  const [georeferenceChecked, setgeoreferenceChecked] = useState(true);
+  const [brujulaChecked, setbrujulaChecked] = useState(true);
   return (
     <>
       <Box>
@@ -61,17 +80,52 @@ const dashboard = () => {
           {/* ROW1 */}
           <Box
             m={2}
-            display="flex"
             alignItems="center"
             justifyContent="center"
             backgroundColor="rgba(35, 35, 35, 0.7)"
             borderRadius="10px"
           >
-            <SensorsLeft data={data.sensors} />
+            <Box justifyContent="center" display="flex" width="100%" m="0 30px">
+              <Switch
+                color="success"
+                onChange={(event) => {
+                  sensorsChecked
+                    ? setsensorsChecked(false)
+                    : setsensorsChecked(true);
+                }}
+              />
+            </Box>
+            {sensorsChecked ? (
+              <></>
+            ) : (
+              <Box display="flex">
+                <SensorsLeft data={data.sensors} />
+              </Box>
+            )}
           </Box>
           {/* ROW2 */}
-          <Box m={2} display="flex">
-            <Terminal />
+          <Box
+            m={2}
+            backgroundColor="rgba(35, 35, 35, 0.7)"
+            borderRadius="10px"
+          >
+            <Box justifyContent="center" display="flex" width="100%" m="0 30px">
+              <Switch
+                color="success"
+                onChange={(event) => {
+                  terminalChecked
+                    ? setterminalChecked(false)
+                    : setterminalChecked(true);
+                }}
+              />
+            </Box>
+            {terminalChecked ? (
+              <></>
+            ) : (
+              <Box display="flex">
+                <Terminal />
+              </Box>
+            )}
           </Box>
         </Box>
         {/* RIGTH COMPONETS */}
@@ -88,21 +142,82 @@ const dashboard = () => {
           {/* ROW1 */}
           <Box
             m={2}
-            display="flex"
             alignItems="center"
             justifyContent="center"
             backgroundColor="rgba(35, 35, 35, 0.7)"
             borderRadius="10px"
           >
-            <SensorsRigth data={data.sensors} />
+            <Box justifyContent="center" display="flex" width="100%" m="0 30px">
+              <Switch
+                color="success"
+                onChange={(event) => {
+                  sensors2Checked
+                    ? setsensors2Checked(false)
+                    : setsensors2Checked(true);
+                }}
+              />
+            </Box>
+            <Box>
+              {sensors2Checked ? (
+                <></>
+              ) : (
+                <Box display="flex">
+                  <SensorsRigth data={data.sensors} />
+                </Box>
+              )}
+            </Box>
           </Box>
           {/* ROW2 */}
-          <Box m={2} backgroundColor="rgba(35, 35, 35, 0.7)" display="flex">
-            <Brujula />
+          <Box
+            m={2}
+            backgroundColor="rgba(35, 35, 35, 0.7)"
+            borderRadius="10px"
+          >
+            <Box justifyContent="center" display="flex" width="100%" m="0 30px">
+              <Switch
+                color="success"
+                onChange={(event) => {
+                  brujulaChecked
+                    ? setbrujulaChecked(false)
+                    : setbrujulaChecked(true);
+                }}
+              />
+            </Box>
+            <Box>
+              {brujulaChecked ? (
+                <></>
+              ) : (
+                <Box display="flex">
+                  <Brujula data={data.sensors} />
+                </Box>
+              )}
+            </Box>
           </Box>
           {/* ROW3 */}
-          <Box m={2} display="flex">
-            <GeoReference data={data.georeference} />
+          <Box
+            m={2}
+            backgroundColor="rgba(35, 35, 35, 0.7)"
+            borderRadius="10px"
+          >
+            <Box justifyContent="center" display="flex" width="100%" m="0 30px">
+              <Switch
+                color="success"
+                onChange={(event) => {
+                  georeferenceChecked
+                    ? setgeoreferenceChecked(false)
+                    : setgeoreferenceChecked(true);
+                }}
+              />
+            </Box>
+            <Box>
+              {georeferenceChecked ? (
+                <></>
+              ) : (
+                <Box display="flex">
+                  <GeoReference />
+                </Box>
+              )}
+            </Box>
           </Box>
         </Box>
       </Box>
