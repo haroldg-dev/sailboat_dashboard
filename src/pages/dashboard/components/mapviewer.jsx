@@ -10,7 +10,7 @@ const centerInit = {
   lng: -77.031423,
 };
 
-const Navigation = ({ currentLocation }) => {
+const Navigation = ({ currentLocation, socket}) => {
   console.log("currentLocation: ", currentLocation);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -32,6 +32,7 @@ const Navigation = ({ currentLocation }) => {
         lng: center.lng + item.position.lng,
       });
     });
+    socket.emit("xbee:mision", markerList)
   }, [markerList]);
 
   const addmarker = () => {

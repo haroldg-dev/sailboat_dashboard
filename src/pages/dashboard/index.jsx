@@ -9,6 +9,7 @@ import SensorsLeft from "./components/SensorsLeft";
 import Brujula from "./components/brujula";
 import GeoReference from "./components/georeference";
 const dashboard = () => {
+  const [socket, setSocket] = useState();
   const [data, setData] = useState({
     sensors: {
       tempInt: null,
@@ -25,7 +26,9 @@ const dashboard = () => {
   useEffect(() => {
     const newSocket = io(`http://localhost:4000`);
     if (newSocket) {
+      setSocket(socket);
       newSocket.on("xbee:datos", (res) => {
+        console.log("res: ", res)
         setData({
           sensors: {
             tempInt: res.tempInterna,
@@ -65,7 +68,7 @@ const dashboard = () => {
     <>
       <Box>
         <Box sx={{ position: "absolute", top: 0, zIndex: "modal" }}>
-          <Navigation currentLocation={data.currentLocation} />
+          <Navigation currentLocation={data.currentLocation} socket={socket} />
         </Box>
         {/* LEFT COMPONETS */}
         <Box
