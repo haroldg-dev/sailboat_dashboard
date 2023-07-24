@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../../core/theme/theme";
 import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 import { Box, Input, Button } from "@mui/material";
 import car from "./resources/car.png";
+import { SocketContext } from "../../../context";
 
 const centerInit = {
   lat: -12.083638,
   lng: -77.031423,
 };
 
-const Navigation = ({ currentLocation, socket}) => {
+const Navigation = ({ currentLocation }) => {
+  const socket = useContext(SocketContext)
   console.log("currentLocation: ", currentLocation);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -27,11 +29,14 @@ const Navigation = ({ currentLocation, socket}) => {
 
   useEffect(() => {
     markerList.map((item, i) => {
-      setCenter({
-        lat: center.lat + item.position.lat,
-        lng: center.lng + item.position.lng,
-      });
+      if(center){
+        setCenter({
+          lat: center.lat + item.position.lat,
+          lng: center.lng + item.position.lng,
+        });
+      }
     });
+    console.log(markerList)
     socket.emit("xbee:mision", markerList)
   }, [markerList]);
 

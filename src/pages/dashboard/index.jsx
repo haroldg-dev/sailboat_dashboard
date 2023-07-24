@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import io from "socket.io-client";
 import { Box, Switch, useTheme, Typography } from "@mui/material";
 import { tokens } from "../../core/theme/theme";
@@ -8,8 +8,11 @@ import SensorsRigth from "./components/SensorsRigth";
 import SensorsLeft from "./components/SensorsLeft";
 import Brujula from "./components/brujula";
 import GeoReference from "./components/georeference";
+import { SocketContext } from "../../context";
+
 const dashboard = () => {
-  const [socket, setSocket] = useState();
+  const socket = useContext(SocketContext);
+
   const [data, setData] = useState({
     sensors: {
       tempInt: null,
@@ -23,11 +26,11 @@ const dashboard = () => {
     },
   });
 
+  
+
   useEffect(() => {
-    const newSocket = io(`http://localhost:4000`);
-    if (newSocket) {
-      setSocket(socket);
-      newSocket.on("xbee:datos", (res) => {
+    if (socket) {
+      socket.on("xbee:datos", (res) => {
         console.log("res: ", res)
         setData({
           sensors: {
@@ -68,7 +71,7 @@ const dashboard = () => {
     <>
       <Box>
         <Box sx={{ position: "absolute", top: 0, zIndex: "modal" }}>
-          <Navigation currentLocation={data.currentLocation} socket={socket} />
+          <Navigation currentLocation={data.currentLocation} />
         </Box>
         {/* LEFT COMPONETS */}
         <Box
