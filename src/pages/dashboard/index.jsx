@@ -7,6 +7,7 @@ import Terminal from "./components/Terminal";
 import SensorsRigth from "./components/SensorsRigth";
 import SensorsLeft from "./components/SensorsLeft";
 import Brujula from "./components/brujula";
+import Brujula2 from "./components/brujula2";
 import GeoReference from "./components/georeference";
 import { SocketContext } from "../../context";
 
@@ -26,12 +27,10 @@ const dashboard = () => {
     },
   });
 
-  
-
   useEffect(() => {
     if (socket) {
       socket.on("xbee:datos", (res) => {
-        console.log("res: ", res)
+        console.log("res: ", res);
         setData({
           sensors: {
             tempInt: res.tempInterna,
@@ -194,7 +193,7 @@ const dashboard = () => {
                 <></>
               ) : (
                 <Box display="flex">
-                  <Brujula data={data.sensors} />
+                  <Brujula2 data={data.sensors} />
                 </Box>
               )}
             </Box>
