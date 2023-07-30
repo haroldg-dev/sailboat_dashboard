@@ -7,9 +7,11 @@ import car from "./resources/car.png";
 import { SocketContext } from "../../../context";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
+// -12.518632, -76.738488 Chilca
+// -12.083638, -77.031423 Lince
 const centerInit = {
-  lat: -12.083638,
-  lng: -77.031423,
+  lat: -12.518632,
+  lng: -76.738488,
 };
 
 const Navigation = ({ currentLocation }) => {
