@@ -1,6 +1,6 @@
 .compass-round {
-    width: 400px;
-    height: 400px;
+    width: 180px;
+    height: 180px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -12,57 +12,79 @@
     margin: 20px;
     /* animation: circle-static 2s linear infinite; */
 }
-
 .compass-round img {
     position: absolute;
-    height: 335px;
-    width: 335px;
+    height: 85%;
+    width: 85%;
     border-radius: 50%;
     transition: transform 0.1s ease;
 }
 
 .indicator {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     position: absolute;
     background: #1cfcfc;
     border-radius: 50%;
-    animation: circle 5s linear infinite;
+    animation: circle;
 }
 
 .ind-heading {
     background: #1ce52a;
-    animation: circle 2s linear infinite;
+    animation: circle;
 }
 
 .ind-waypoint {
     background: #ff0066;
-    animation: circle 3s linear infinite;
+    animation: circle;
 }
 
-.circle {
-    width: 200px;
-    height: 200px;
-    border: 3px solid var(--back-med);
-    margin-bottom: 25px;
+.vela-round {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #0c6c7c;
+    border-top: 3px solid #1cfcfc;
+    background: #000000;
+    border-radius: 50%;
+    margin: 20px;
 }
 
-@keyframes circle {
-    0% {
-        transform: rotate(0deg)translate(-200px);
-    }
-
-    100% {
-        transform: rotate(360deg)translate(-200px)
-    }
+.linev {
+    width: 1px;
+    height: 100px;
+    position: absolute;
+    background: #1cfcfc;
+    border-radius: 50%;
 }
 
-@keyframes circle-static {
-    0% {
-        transform: rotate(0deg);
-    }
+.lineh {
+    width: 100px;
+    height: 1px;
+    position: absolute;
+    background: #1cfcfc;
+    border-radius: 50%;
 
-    100% {
-        transform: rotate(360deg);
-    }
 }
+
+.vela-pos {
+    width: 49px;
+    height: 4px;
+    position: absolute;
+    background: #eb0740;
+    border-radius: 20%;
+    transform: translateX(50px)
+}
+
+.vela-viento {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border-radius: 50%;
+    background: #1ce52a;
+    animation: circle;
+}
+
