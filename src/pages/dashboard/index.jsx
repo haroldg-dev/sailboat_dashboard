@@ -27,19 +27,36 @@ const dashboard = () => {
     },
   });
 
+  const [dataAuto, setDataAuto] = useState({
+    distanciapnrecta: "0",
+    rumboDeseado: "0",
+    rumboTomado: "0",
+    posVela: "0",
+    rudderangle: "0",
+    dirviento: "0", 
+    h: "0",
+    p0: "0",
+    posact: "0",
+    distbefact: "0",
+    distanciap0w: "0",
+    waypoint: "0",
+    t: "0",
+  });
+
   useEffect(() => {
     if (socket) {
       socket.on("xbee:datos", (res) => {
-        console.log("res: ", res);
         setData({
           sensors: {
             tempInt: res.tempInterna,
             humedad: res.humedad,
             velViento: res.velViento,
             dirViento: res.dirViento,
-            presion: res.presion,
-            saturacion: res.sat,
+            posVela: res.prosVela,
+            bateria: res.bateria,
             altitud: res.altitud,
+            paneles: res.paneles,
+            velocidadCuerpo: res.velocidadCuerpo,
           },
           currentLocation: {
             lat: parseFloat(res.lat),
@@ -55,9 +72,28 @@ const dashboard = () => {
             dia: res.dia,
             hora: res.hora,
             min: res.min,
+            satelites: res.sat,
           },
         });
+        //console.log(res)
       });
+      socket.on("xbee:dataauto", (res) => {
+        setDataAuto({
+          distanciapnrecta: res.distanciapnrecta,
+          rumboDeseado: res.dhin,
+          rumboTomado: res.dh,
+          posVela: res.as,
+          rudderangle: res.rudderangle,
+          dirviento: res.rwh, 
+          h: res.h,
+          p0: res.p0,
+          posact: res.posact,
+          distbefact: res.distbefact,
+          distanciap0w: res.distanciap0w,
+          waypoint: res.waypoint,
+          t: res.t,
+        })
+      })
     }
   }, []);
 
@@ -193,7 +229,7 @@ const dashboard = () => {
                 <></>
               ) : (
                 <Box display="flex">
-                  <Brujula2 data={data.sensors} />
+                  <Brujula2 data={dataAuto} />
                 </Box>
               )}
             </Box>

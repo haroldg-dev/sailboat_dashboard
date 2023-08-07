@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../../core/theme/theme";
 import "./styles/brujula2.css";
 const Brujula2 = ({ data }) => {
-  console.log("data: ", data);
+  console.log("data brujula2: ", data);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -14,17 +14,17 @@ const Brujula2 = ({ data }) => {
               <img src="/compass02.png" alt="Imagen" id="compass-fond" />
               <div
                 class="indicator ind-heading"
-                style={{ transform: `rotate(150deg)translate(-90px)` }}
+                style={{ transform: `rotate(${data.rumboDeseado}deg)translate(-90px)` }}
                 id="heading"
               ></div>
               <div
                 class="indicator ind-waypoint"
-                style={{ transform: `rotate(10deg)translate(-90px)` }}
+                style={{ transform: `rotate(${data.rumboTomado}deg)translate(-90px)` }}
                 id="waypoint"
               ></div>
               <div
                 class="indicator"
-                style={{ transform: `rotate(200deg)translate(-90px)` }}
+                style={{ transform: `rotate(${data.dirviento}deg)translate(-90px)` }}
                 id="wind"
               ></div>
             </div>
@@ -54,12 +54,12 @@ const Brujula2 = ({ data }) => {
               <div class="lineh"></div>
               <div
                 class="vela-pos"
-                style={{ transform: `rotate(-80deg)translate(50%)` }}
+                style={{ transform: `rotate(${data.posVela}deg)translate(50%)` }}
                 id="heading"
               ></div>
               <div
                 class="vela-viento"
-                style={{ transform: `rotate(10deg)translate(-50px)` }}
+                style={{ transform: `rotate(${data.dirviento}deg)translate(-50px)` }}
                 id="waypoint"
               ></div>
             </div>

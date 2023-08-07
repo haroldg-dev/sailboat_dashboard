@@ -9,6 +9,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 // -12.518632, -76.738488 Chilca
 // -12.083638, -77.031423 Lince
+// -12.133868, -76.979774 Taller URP
 const centerInit = {
   lat: -12.518632,
   lng: -76.738488,
@@ -35,6 +36,7 @@ const Navigation = ({ currentLocation }) => {
   const [center, setCenter] = useState();
 
   useEffect(() => {
+    console.log("currentLocation: ",currentLocation)
     markerList.map((item, i) => {
       if (center) {
         setCenter({
@@ -121,11 +123,16 @@ const Navigation = ({ currentLocation }) => {
                 ;
               </>
             ))}
-          {currentLocation.lat != null && (
+          {currentLocation.lat != null ? 
+          <>
+            <MarkerF position={currentLocation} icon={car}></MarkerF>
+          </>
+          /*()=>{
+            map.panTo(currentLocation);
             <>
               <MarkerF position={currentLocation} icon={car}></MarkerF>
             </>
-          )}
+            }*/ : <></>}
         </GoogleMap>
         <Box
           width="100vw"
