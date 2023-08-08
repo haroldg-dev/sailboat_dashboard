@@ -8,9 +8,9 @@ const AppDashboard = () => {
   return (
     <div className="app">
       <main className="content">
-        <Box sx={{ position: "absolute", zIndex: "2", width: "100vh" }}>
+        {/* <Box sx={{ position: "absolute", zIndex: "2", width: "100vh" }}>
           <Topbar setIsSidebar={setIsSidebar} />
-        </Box>
+        </Box> */}
         <Box
           sx={{
             position: "absolute",

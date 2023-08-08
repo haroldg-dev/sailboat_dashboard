@@ -36,7 +36,7 @@ const Navigation = ({ currentLocation }) => {
   const [center, setCenter] = useState();
 
   useEffect(() => {
-    console.log("currentLocation: ",currentLocation)
+    console.log("currentLocation: ", currentLocation);
     markerList.map((item, i) => {
       if (center) {
         setCenter({
@@ -103,7 +103,7 @@ const Navigation = ({ currentLocation }) => {
           zoom={16}
           mapContainerStyle={{ width: "100vw", height: "100vh" }}
           options={{
-            mapId: "8eca21398e193519",
+            //mapId: "8eca21398e193519",
             disableDefaultUI: true,
             zoomControl: false,
             streetViewControl: false,
@@ -120,19 +120,20 @@ const Navigation = ({ currentLocation }) => {
                   position={position}
                   //icon={{ url: "../../../assets/demo.ico" }}
                 ></MarkerF>
-                ;
               </>
             ))}
-          {currentLocation.lat != null ? 
-          <>
-            <MarkerF position={currentLocation} icon={car}></MarkerF>
-          </>
-          /*()=>{
+          {currentLocation.lat != null ? (
+            <>
+              <MarkerF position={currentLocation} icon={car}></MarkerF>
+            </>
+          ) : (
+            /*()=>{
             map.panTo(currentLocation);
             <>
               <MarkerF position={currentLocation} icon={car}></MarkerF>
             </>
-            }*/ : <></>}
+            }*/ <></>
+          )}
         </GoogleMap>
         <Box
           width="100vw"
@@ -147,49 +148,47 @@ const Navigation = ({ currentLocation }) => {
         >
           <Box bgcolor={colors.primary[400]} m="20px" borderRadius="10px">
             {auxList.map(({ lat, lng }, id) => (
-              <>
-                <Box key={id} display="flex">
-                  <Input
-                    type="text"
-                    placeholder="latitude"
-                    name="lat"
-                    onChange={(e) => handleChange(e, id)}
-                    value={lat}
+              <Box key={id} display="flex">
+                <Input
+                  type="text"
+                  placeholder="latitude"
+                  name="lat"
+                  onChange={(e) => handleChange(e, id)}
+                  value={lat}
+                  sx={{ margin: "10px" }}
+                />
+                <Input
+                  type="text"
+                  placeholder="longitude"
+                  name="lng"
+                  onChange={(e) => handleChange(e, id)}
+                  value={lng}
+                  sx={{ margin: "10px" }}
+                />
+                {auxList.length - 1 === id && auxList.length < 4 && (
+                  <Button
+                    type="submit"
+                    color="secondary"
+                    variant="contained"
+                    onClick={() => addmarker(id)}
                     sx={{ margin: "10px" }}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="longitude"
-                    name="lng"
-                    onChange={(e) => handleChange(e, id)}
-                    value={lng}
-                    sx={{ margin: "10px" }}
-                  />
-                  {auxList.length - 1 === id && auxList.length < 4 && (
-                    <Button
-                      type="submit"
-                      color="secondary"
-                      variant="contained"
-                      onClick={() => addmarker(id)}
-                      sx={{ margin: "10px" }}
-                    >
-                      Create Mark
-                    </Button>
-                  )}
-                  {auxList.length > 1 && (
-                    <IconButton
-                      aria-label="center back"
-                      onClick={() => handleDelete(id)}
-                      /* currentLocation.lat
+                  >
+                    Create Mark
+                  </Button>
+                )}
+                {auxList.length > 1 && (
+                  <IconButton
+                    aria-label="center back"
+                    onClick={() => handleDelete(id)}
+                    /* currentLocation.lat
                           ? map.panTo(currentLocation)
                           : map.panTo(centerInit);
                       }} */
-                    >
-                      <DeleteForeverIcon></DeleteForeverIcon>
-                    </IconButton>
-                  )}
-                </Box>
-              </>
+                  >
+                    <DeleteForeverIcon></DeleteForeverIcon>
+                  </IconButton>
+                )}
+              </Box>
             ))}
           </Box>
         </Box>

@@ -20,6 +20,23 @@ const dashboard = () => {
       humedad: null,
       velViento: null,
       dirViento: null,
+      velocidadCuerpo: null,
+      posVela: null,
+      altitud: null,
+      paneles: null,
+      bateria: null,
+      satelite: {
+        mes: null,
+        dia: null,
+        hora: null,
+        min: null,
+        satelites: null,
+      },
+      space: {
+        accelx: null,
+        accely: null,
+        brujula: null,
+      },
     },
     currentLocation: {
       lat: null,
@@ -33,7 +50,7 @@ const dashboard = () => {
     rumboTomado: "0",
     posVela: "0",
     rudderangle: "0",
-    dirviento: "0", 
+    dirviento: "0",
     h: "0",
     p0: "0",
     posact: "0",
@@ -44,7 +61,8 @@ const dashboard = () => {
   });
 
   useEffect(() => {
-    if (socket) {
+    if (socket.connected) {
+      setConnection(true);
       socket.on("xbee:datos", (res) => {
         setData({
           sensors: {
@@ -52,11 +70,23 @@ const dashboard = () => {
             humedad: res.humedad,
             velViento: res.velViento,
             dirViento: res.dirViento,
+            velocidadCuerpo: res.velocidadCuerpo,
             posVela: res.prosVela,
-            bateria: res.bateria,
             altitud: res.altitud,
             paneles: res.paneles,
-            velocidadCuerpo: res.velocidadCuerpo,
+            bateria: res.bateria,
+            satelite: {
+              mes: res.mes,
+              dia: res.dia,
+              hora: res.hora,
+              min: res.min,
+              satelites: res.sat,
+            },
+            space: {
+              accelx: res.accelx,
+              accely: res.accely,
+              brujula: res.brujula,
+            },
           },
           currentLocation: {
             lat: parseFloat(res.lat),
@@ -66,13 +96,6 @@ const dashboard = () => {
             accelx: res.accelx,
             accely: res.accely,
             brujula: res.brujula,
-          },
-          satelite: {
-            mes: res.mes,
-            dia: res.dia,
-            hora: res.hora,
-            min: res.min,
-            satelites: res.sat,
           },
         });
         //console.log(res)
@@ -84,7 +107,7 @@ const dashboard = () => {
           rumboTomado: res.dh,
           posVela: res.as,
           rudderangle: res.rudderangle,
-          dirviento: res.rwh, 
+          dirviento: res.rwh,
           h: res.h,
           p0: res.p0,
           posact: res.posact,
@@ -92,11 +115,11 @@ const dashboard = () => {
           distanciap0w: res.distanciap0w,
           waypoint: res.waypoint,
           t: res.t,
-        })
-      })
+        });
+      });
     }
   }, []);
-
+  const [connection, setConnection] = useState(true);
   const [sensorsChecked, setsensorsChecked] = useState(true);
   const [terminalChecked, setterminalChecked] = useState(true);
   const [sensors2Checked, setsensors2Checked] = useState(true);
@@ -113,7 +136,7 @@ const dashboard = () => {
           p={2}
           width="25vw"
           sx={{
-            top: "5vh",
+            top: "0vh",
             position: "absolute",
             zIndex: "modal",
           }}
@@ -126,22 +149,12 @@ const dashboard = () => {
             backgroundColor="rgba(35, 35, 35, 0.7)"
             borderRadius="10px"
           >
-            <Box justifyContent="center" display="flex" width="100%" m="0 30px">
-              <Switch
-                color="success"
-                onChange={(event) => {
-                  sensorsChecked
-                    ? setsensorsChecked(false)
-                    : setsensorsChecked(true);
-                }}
-              />
-            </Box>
-            {sensorsChecked ? (
-              <></>
-            ) : (
+            {connection ? (
               <Box display="flex">
                 <SensorsLeft data={data.sensors} />
               </Box>
+            ) : (
+              <></>
             )}
           </Box>
           {/* ROW2 */}
@@ -150,22 +163,12 @@ const dashboard = () => {
             backgroundColor="rgba(35, 35, 35, 0.7)"
             borderRadius="10px"
           >
-            <Box justifyContent="center" display="flex" width="100%" m="0 30px">
-              <Switch
-                color="success"
-                onChange={(event) => {
-                  terminalChecked
-                    ? setterminalChecked(false)
-                    : setterminalChecked(true);
-                }}
-              />
-            </Box>
-            {terminalChecked ? (
-              <></>
-            ) : (
+            {connection ? (
               <Box display="flex">
-                <Terminal />
+                <Brujula />
               </Box>
+            ) : (
+              <></>
             )}
           </Box>
         </Box>
@@ -174,7 +177,7 @@ const dashboard = () => {
           width="25vw"
           p={2}
           sx={{
-            top: "5vh",
+            top: "0vh",
             position: "absolute",
             zIndex: "modal",
             right: "0vw",
@@ -188,23 +191,13 @@ const dashboard = () => {
             backgroundColor="rgba(35, 35, 35, 0.7)"
             borderRadius="10px"
           >
-            <Box justifyContent="center" display="flex" width="100%" m="0 30px">
-              <Switch
-                color="success"
-                onChange={(event) => {
-                  sensors2Checked
-                    ? setsensors2Checked(false)
-                    : setsensors2Checked(true);
-                }}
-              />
-            </Box>
             <Box>
-              {sensors2Checked ? (
-                <></>
-              ) : (
+              {connection ? (
                 <Box display="flex">
-                  <SensorsRigth data={data.sensors} />
+                  <Brujula2 data={dataAuto} />
                 </Box>
+              ) : (
+                <></>
               )}
             </Box>
           </Box>
@@ -214,28 +207,18 @@ const dashboard = () => {
             backgroundColor="rgba(35, 35, 35, 0.7)"
             borderRadius="10px"
           >
-            <Box justifyContent="center" display="flex" width="100%" m="0 30px">
-              <Switch
-                color="success"
-                onChange={(event) => {
-                  brujulaChecked
-                    ? setbrujulaChecked(false)
-                    : setbrujulaChecked(true);
-                }}
-              />
-            </Box>
             <Box>
-              {brujulaChecked ? (
-                <></>
-              ) : (
+              {connection ? (
                 <Box display="flex">
-                  <Brujula2 data={dataAuto} />
+                  <Terminal />
                 </Box>
+              ) : (
+                <></>
               )}
             </Box>
           </Box>
           {/* ROW3 */}
-          <Box
+          {/* <Box
             m={2}
             backgroundColor="rgba(35, 35, 35, 0.7)"
             borderRadius="10px"
@@ -259,7 +242,7 @@ const dashboard = () => {
                 </Box>
               )}
             </Box>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     </>
