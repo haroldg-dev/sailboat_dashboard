@@ -1,0 +1,86 @@
+.compass-rectangle {
+    width: 180px;
+    height: 180px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0c6c7c;
+    margin: 20px;
+}
+.compass-rectangle img {
+    position: absolute;
+    height: 80%;
+    width: 80%;
+    border-radius: 50%;
+    transition: transform 0.1s ease;
+}
+
+.indicator {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    background: #1cfcfc;
+    border-radius: 50%;
+    animation: circle;
+}
+
+.ind-heading {
+    background: #1ce52a;
+    animation: circle;
+}
+
+.ind-waypoint {
+    background: #ff0066;
+    animation: circle;
+}
+
+.vela-round {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #0c6c7c;
+    border-top: 3px solid #1cfcfc;
+    background: #000000;
+    border-radius: 50%;
+    margin: 20px;
+}
+
+.linev {
+    width: 1px;
+    height: 100px;
+    position: absolute;
+    background: #1cfcfc;
+    border-radius: 50%;
+}
+
+.lineh {
+    width: 100px;
+    height: 1px;
+    position: absolute;
+    background: #1cfcfc;
+    border-radius: 50%;
+
+}
+
+.vela-pos {
+    width: 49px;
+    height: 4px;
+    position: absolute;
+    background: #eb0740;
+    border-radius: 20%;
+    transform: translateX(50px)
+}
+
+.vela-viento {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border-radius: 50%;
+    background: #1ce52a;
+    animation: circle;
+}
+
