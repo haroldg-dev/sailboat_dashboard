@@ -1,6 +1,6 @@
 .compass-round {
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -40,8 +40,8 @@
 }
 
 .vela-round {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -55,14 +55,14 @@
 
 .linev {
     width: 1px;
-    height: 100px;
+    height: 80px;
     position: absolute;
     background: #1cfcfc;
     border-radius: 50%;
 }
 
 .lineh {
-    width: 100px;
+    width: 80px;
     height: 1px;
     position: absolute;
     background: #1cfcfc;
@@ -71,7 +71,7 @@
 }
 
 .vela-pos {
-    width: 49px;
+    width: 39px;
     height: 4px;
     position: absolute;
     background: #eb0740;

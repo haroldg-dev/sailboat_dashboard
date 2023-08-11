@@ -15,29 +15,29 @@ const Brujula2 = ({ data }) => {
           {"DATOS MODO AUTO"}
         </Typography>
       </Box>
-      <Box display="flex">
+      <Box display="flex" justifyContent="space-between">
         <Box>
-          <Box marginTop="20%">
+          <Box marginTop="25%">
             <div class="compass-round">
               <img src="/compass02.png" alt="Imagen" id="compass-fond" />
               <div
                 class="indicator ind-heading"
                 style={{
-                  transform: `rotate(${data.rumboDeseado}deg)translate(-90px)`,
+                  transform: `rotate(${data.rumboDeseado}deg)translate(-75px)`,
                 }}
                 id="heading"
               ></div>
               <div
                 class="indicator ind-waypoint"
                 style={{
-                  transform: `rotate(${data.rumboTomado}deg)translate(-90px)`,
+                  transform: `rotate(${data.rumboTomado}deg)translate(-75px)`,
                 }}
                 id="waypoint"
               ></div>
               <div
                 class="indicator"
                 style={{
-                  transform: `rotate(${data.dirviento}deg)translate(-90px)`,
+                  transform: `rotate(${data.dirviento}deg)translate(-75px)`,
                 }}
                 id="wind"
               ></div>
@@ -76,7 +76,7 @@ const Brujula2 = ({ data }) => {
               <div
                 class="vela-viento"
                 style={{
-                  transform: `rotate(${data.dirviento}deg)translate(-50px)`,
+                  transform: `rotate(${data.dirviento}deg)translate(-40px)`,
                 }}
                 id="waypoint"
               ></div>
