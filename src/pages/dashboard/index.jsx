@@ -33,7 +33,7 @@ const dashboard = () => {
     rumboTomado: "0",
     posVela: "0",
     rudderangle: "0",
-    dirviento: "0", 
+    dirviento: "0",
     h: "0",
     p0: "0",
     posact: "0",
@@ -45,37 +45,46 @@ const dashboard = () => {
 
   useEffect(() => {
     if (socket) {
+      // socket.on("xbee:ord", (res) => {});
+      // socket.on("xbee:gps", (res) => {});
       socket.on("xbee:datos", (res) => {
         setData({
           sensors: {
-            tempInt: res.tempInterna,
-            humedad: res.humedad,
-            velViento: res.velViento,
-            dirViento: res.dirViento,
-            posVela: res.prosVela,
-            bateria: res.bateria,
-            altitud: res.altitud,
-            paneles: res.paneles,
-            velocidadCuerpo: res.velocidadCuerpo,
+            // tempInt: res.tempInterna,
+            // humedad: res.humedad,
+            velViento: res.vwind,
+            dirViento: res.rwd,
+            diferencialTiempo: res.dt,
+            // posVela: res.sail1,
+            // posVela2: res.sail2,
+            // clutch: res.clutch,
+
+            // bateria: res.bateria,
+            // paneles: res.paneles,
+            age: res.age,
+            altitud: res.alt,
+            velocidadCuerpo: res.vel,
+            sec: res.sec,
+            centisec: res.centisec,
           },
           currentLocation: {
             lat: parseFloat(res.lat),
             lng: parseFloat(res.lng),
           },
           space: {
-            accelx: res.accelx,
-            accely: res.accely,
-            brujula: res.brujula,
+            accelx: res.roll,
+            accely: res.pitch,
+            brujula: res.hdn,
           },
-          satelite: {
-            mes: res.mes,
-            dia: res.dia,
-            hora: res.hora,
-            min: res.min,
-            satelites: res.sat,
-          },
+          // satelite: {
+          //   mes: res.mes,
+          //   dia: res.dia,
+          //   hora: res.hora,
+          //   min: res.min,
+          //   satelites: res.sat,
+          // },
         });
-        //console.log(res)
+        console.log(res);
       });
       socket.on("xbee:dataauto", (res) => {
         setDataAuto({
@@ -84,7 +93,7 @@ const dashboard = () => {
           rumboTomado: res.dh,
           posVela: res.as,
           rudderangle: res.rudderangle,
-          dirviento: res.rwh, 
+          dirviento: res.rwh,
           h: res.h,
           p0: res.p0,
           posact: res.posact,
@@ -92,8 +101,8 @@ const dashboard = () => {
           distanciap0w: res.distanciap0w,
           waypoint: res.waypoint,
           t: res.t,
-        })
-      })
+        });
+      });
     }
   }, []);
 
