@@ -22,7 +22,7 @@ const Navigation = ({ currentLocation }) => {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: import.meta.env.GOOGLE_KEY,
+    googleMapsApiKey: "AIzaSyD73ZITwGT6YvaR7P8BC19cLY8VnusxW4g",
   });
 
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
@@ -36,7 +36,7 @@ const Navigation = ({ currentLocation }) => {
   const [center, setCenter] = useState();
 
   useEffect(() => {
-    console.log("currentLocation: ",currentLocation)
+    console.log("currentLocation: ", currentLocation);
     markerList.map((item, i) => {
       if (center) {
         setCenter({
@@ -103,7 +103,7 @@ const Navigation = ({ currentLocation }) => {
           zoom={16}
           mapContainerStyle={{ width: "100vw", height: "100vh" }}
           options={{
-            mapId: "8eca21398e193519",
+            //mapId: "8eca21398e193519",
             disableDefaultUI: true,
             zoomControl: false,
             streetViewControl: false,
@@ -123,16 +123,18 @@ const Navigation = ({ currentLocation }) => {
                 ;
               </>
             ))}
-          {currentLocation.lat != null ? 
-          <>
-            <MarkerF position={currentLocation} icon={car}></MarkerF>
-          </>
-          /*()=>{
+          {currentLocation.lat != null ? (
+            <>
+              <MarkerF position={currentLocation} icon={car}></MarkerF>
+            </>
+          ) : (
+            /*()=>{
             map.panTo(currentLocation);
             <>
               <MarkerF position={currentLocation} icon={car}></MarkerF>
             </>
-            }*/ : <></>}
+            }*/ <></>
+          )}
         </GoogleMap>
         <Box
           width="100vw"
