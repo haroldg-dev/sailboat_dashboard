@@ -46,7 +46,10 @@ const Navigation = ({ currentLocation }) => {
       }
     });
     console.log("MarkerList: ", markerList);
-    socket.emit("xbee:mision", markerList);
+    if (markerList.length == 3) {
+      console.log("Enviando Coordenadas");
+      socket.emit("xbee:mision", markerList);
+    }
   }, [markerList]);
 
   const addmarker = (index) => {
