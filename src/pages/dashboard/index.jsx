@@ -84,7 +84,7 @@ const dashboard = () => {
           //   satelites: res.sat,
           // },
         });
-        console.log(res);
+        console.log("XBEE DATA: ", res);
       });
       socket.on("xbee:dataauto", (res) => {
         setDataAuto({
