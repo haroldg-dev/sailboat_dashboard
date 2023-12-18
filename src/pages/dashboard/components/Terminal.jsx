@@ -20,6 +20,13 @@ const myTerminal = () => {
         return "Modo Manual ON";
       },
     },
+    semi: {
+      description: "Modo Semi Auto ON",
+      fn: () => {
+        socket.emit("xbee:state", "S");
+        return "Modo Semi Auto ON";
+      },
+    },
     vela: {
       description: "Mover Vela",
       fn: (data) => {
